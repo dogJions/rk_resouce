@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fym.dao.ResouceContentMapper">
+  <resultMap id="BaseResultMap" type="com.fym.entity.ResouceContent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="seo_keyword" jdbcType="VARCHAR" property="seoKeyword" />
+    <result column="seo_description" jdbcType="VARCHAR" property="seoDescription" />
+    <result column="thumbnail_img" jdbcType="VARCHAR" property="thumbnailImg" />
+    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="is_show" jdbcType="INTEGER" property="isShow" />
+    <result column="is_home" jdbcType="INTEGER" property="isHome" />
+    <result column="is_news" jdbcType="INTEGER" property="isNews" />
+    <result column="catalog_id" jdbcType="INTEGER" property="catalogId" />
+    <result column="site_type" jdbcType="INTEGER" property="siteType" />
+    <result column="is_recommend" jdbcType="INTEGER" property="isRecommend" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="class_pid" jdbcType="VARCHAR" property="classPid" />
+  </resultMap>
+
+
+
+  <!-- 资源查询 -->
+  <select id="selectByText" parameterType="map" resultMap="BaseResultMap">
+      SELECT * from resouce_content where is_show=1 and site_type=#{siteType}
+      <if test="cid != 0"> and class_pid like concat( concat('%,',#{cid}),',%')</if>
+      <if test="hotOrNew == 1"> ORDER BY click_count desc </if>
+      <if test="hotOrNew == 2"> ORDER BY add_time desc </if>
+  </select>
+
+  <!-- 首页资源查询 -->
+  <select id="selectIndex" resultMap="BaseResultMap">
+      SELECT * from resouce_content a
+      LEFT JOIN resouce_catalog b on a.catalog_id=b.id
+      where b.site_type=1  and is_show=1 and is_home=1
+      ORDER BY a.add_time DESC
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+      SELECT * from resouce_content
+  </select>
+
+  <sql id="Base_Column_List">
+    id, title, summary, add_time, seo_keyword, seo_description, thumbnail_img, click_count, 
+    author, is_show, is_home, is_news, catalog_id, site_type, is_recommend, description, 
+    class_pid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resouce_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resouce_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fym.entity.ResouceContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_content (title, summary, add_time, 
+      seo_keyword, seo_description, thumbnail_img, 
+      click_count, author, is_show, 
+      is_home, is_news, catalog_id, 
+      site_type, is_recommend, description, 
+      class_pid)
+    values (#{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{seoKeyword,jdbcType=VARCHAR}, #{seoDescription,jdbcType=VARCHAR}, #{thumbnailImg,jdbcType=VARCHAR}, 
+      #{clickCount,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, #{isShow,jdbcType=INTEGER}, 
+      #{isHome,jdbcType=INTEGER}, #{isNews,jdbcType=INTEGER}, #{catalogId,jdbcType=INTEGER}, 
+      #{siteType,jdbcType=INTEGER}, #{isRecommend,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{classPid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fym.entity.ResouceContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="seoKeyword != null">
+        seo_keyword,
+      </if>
+      <if test="seoDescription != null">
+        seo_description,
+      </if>
+      <if test="thumbnailImg != null">
+        thumbnail_img,
+      </if>
+      <if test="clickCount != null">
+        click_count,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="isHome != null">
+        is_home,
+      </if>
+      <if test="isNews != null">
+        is_news,
+      </if>
+      <if test="catalogId != null">
+        catalog_id,
+      </if>
+      <if test="siteType != null">
+        site_type,
+      </if>
+      <if test="isRecommend != null">
+        is_recommend,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="classPid != null">
+        class_pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seoKeyword != null">
+        #{seoKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDescription != null">
+        #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnailImg != null">
+        #{thumbnailImg,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="isHome != null">
+        #{isHome,jdbcType=INTEGER},
+      </if>
+      <if test="isNews != null">
+        #{isNews,jdbcType=INTEGER},
+      </if>
+      <if test="catalogId != null">
+        #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="siteType != null">
+        #{siteType,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null">
+        #{isRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="classPid != null">
+        #{classPid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fym.entity.ResouceContent">
+    update resouce_content
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seoKeyword != null">
+        seo_keyword = #{seoKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDescription != null">
+        seo_description = #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnailImg != null">
+        thumbnail_img = #{thumbnailImg,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="isHome != null">
+        is_home = #{isHome,jdbcType=INTEGER},
+      </if>
+      <if test="isNews != null">
+        is_news = #{isNews,jdbcType=INTEGER},
+      </if>
+      <if test="catalogId != null">
+        catalog_id = #{catalogId,jdbcType=INTEGER},
+      </if>
+      <if test="siteType != null">
+        site_type = #{siteType,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null">
+        is_recommend = #{isRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="classPid != null">
+        class_pid = #{classPid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fym.entity.ResouceContent">
+    update resouce_content
+    set title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      seo_keyword = #{seoKeyword,jdbcType=VARCHAR},
+      seo_description = #{seoDescription,jdbcType=VARCHAR},
+      thumbnail_img = #{thumbnailImg,jdbcType=VARCHAR},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      author = #{author,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      is_home = #{isHome,jdbcType=INTEGER},
+      is_news = #{isNews,jdbcType=INTEGER},
+      catalog_id = #{catalogId,jdbcType=INTEGER},
+      site_type = #{siteType,jdbcType=INTEGER},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      class_pid = #{classPid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

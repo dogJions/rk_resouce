@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fym.dao.ResouceLableContentMapper">
+  <resultMap id="BaseResultMap" type="com.fym.entity.ResouceLableContent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="lable_id" jdbcType="BIGINT" property="lableId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, content_id, lable_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resouce_lable_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resouce_lable_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fym.entity.ResouceLableContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_lable_content (content_id, lable_id)
+    values (#{contentId,jdbcType=BIGINT}, #{lableId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fym.entity.ResouceLableContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_lable_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="lableId != null">
+        lable_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="lableId != null">
+        #{lableId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fym.entity.ResouceLableContent">
+    update resouce_lable_content
+    <set>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="lableId != null">
+        lable_id = #{lableId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fym.entity.ResouceLableContent">
+    update resouce_lable_content
+    set content_id = #{contentId,jdbcType=BIGINT},
+      lable_id = #{lableId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

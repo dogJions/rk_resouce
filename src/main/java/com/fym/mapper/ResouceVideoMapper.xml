@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fym.dao.ResouceVideoMapper">
+  
+  <resultMap id="BaseResultMap" type="com.fym.entity.ResouceVideo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="order_sort" jdbcType="INTEGER" property="orderSort" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+  </resultMap>
+  
+  <resultMap id="vodieContent" type="com.fym.entity.ResouceVideo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="order_sort" jdbcType="INTEGER" property="orderSort" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+        <association property="resouceContent" javaType="ResouceContent">
+          <id column="id1" jdbcType="BIGINT" property="id" />
+          <result column="title" jdbcType="VARCHAR" property="title" />
+          <result column="summary" jdbcType="VARCHAR" property="summary" />
+          <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+          <result column="seo_keyword" jdbcType="VARCHAR" property="seoKeyword" />
+          <result column="seo_description" jdbcType="VARCHAR" property="seoDescription" />
+          <result column="thumbnail_img" jdbcType="VARCHAR" property="thumbnailImg" />
+          <result column="click_count" jdbcType="INTEGER" property="clickCount" />
+          <result column="author" jdbcType="VARCHAR" property="author" />
+          <result column="is_show" jdbcType="INTEGER" property="isShow" />
+          <result column="is_home" jdbcType="INTEGER" property="isHome" />
+          <result column="is_news" jdbcType="INTEGER" property="isNews" />
+          <result column="catalog_id" jdbcType="INTEGER" property="catalogId" />
+          <result column="site_type" jdbcType="INTEGER" property="siteType" />
+          <result column="is_recommend" jdbcType="INTEGER" property="isRecommend" />
+          <result column="description" jdbcType="VARCHAR" property="description" />
+          <result column="class_pid" jdbcType="VARCHAR" property="classPid" />
+        </association>
+  </resultMap>
+  <!--  -->
+  <select id="selectByCid" parameterType="long" resultMap="BaseResultMap">
+        select * from resouce_video where content_id=#{id}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+      select * from resouce_video
+  </select>
+
+  <!-- 查首页推荐 点击顺序查询 -->
+  <select id="selectByRecommend" resultMap="vodieContent">
+      select * from resouce_video a
+      LEFT JOIN resouce_content b on a.content_id=b.id
+      where b.is_recommend=1 and b.is_home=1 and b.is_show=1
+      ORDER BY b.click_count DESC
+  </select>
+
+  <sql id="Base_Column_List">
+    id, title, url, order_sort, content_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resouce_video
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resouce_video
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fym.entity.ResouceVideo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_video (title, url, order_sort, 
+      content_id)
+    values (#{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{orderSort,jdbcType=INTEGER}, 
+      #{contentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fym.entity.ResouceVideo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resouce_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="orderSort != null">
+        order_sort,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSort != null">
+        #{orderSort,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fym.entity.ResouceVideo">
+    update resouce_video
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSort != null">
+        order_sort = #{orderSort,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fym.entity.ResouceVideo">
+    update resouce_video
+    set title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      order_sort = #{orderSort,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

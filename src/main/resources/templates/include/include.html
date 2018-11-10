@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <footer >
+
+        <div class="layui-bg-blue header" th:fragment="head">
+            <div class="layui-container r-pading ">
+                <div class="r-logo  ">
+                    LOGO
+                </div>
+                <ul class="layui-nav r-nav layui-hide-xs" >
+                    <li th:class="${active}==1?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/homepage}">首页</a>
+                    </li>
+                    <li th:class="${active}==2?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/text}">文章</a>
+                    </li>
+                    <li th:class="${active}==3?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/video}">视频</a>
+                    </li>
+                    <li th:class="${active}==4?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/soft}">软件</a>
+                    </li>
+                    <li th:class="${active}==5?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/to_massage}">留言</a>
+                    </li>
+                    <li th:class="${active}==6?'layui-nav-item layui-this':'layui-nav-item'">
+                        <a th:href="@{/index/about}">关于我们</a>
+                    </li>
+                </ul>
+                <div  class="houtai">
+                    <a th:href="@{/index/login}" style="color: #fff;font-weight: bold;">后台管理</a>
+                </div>
+                <div class="layui-show-xs r-header-right" id="menus-go">
+                    <i class="layui-icon">&#xe66b;</i>
+                </div>
+            </div>
+
+            <div class="layui-show-xs ydl-seacher">
+                <input type="search" class="ydl-seacher-input" placeholder="搜索" />
+                <i  class="layui-icon layui-icon-search ydl-seacher-btn"></i>
+            </div>
+        </div>
+
+        <div class="mobile-menus">
+            <div class="swilper-main">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide active" onclick="window.location.href='index.html'">首页</div>
+                        <div class="swiper-slide" onclick="window.location.href='articleList.html'">文章</div>
+                        <div class="swiper-slide" onclick="window.location.href='videoList.html'">视频</div>
+                        <div class="swiper-slide" onclick="window.location.href='softList.html'">软件</div>
+                        <div class="swiper-slide" onclick="window.location.href='message.html'">留言</div>
+                        <div class="swiper-slide" onclick="window.location.href='about.html'">关于我们</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <footer >
+
+        <div class="layui-col-md4" th:fragment="right">
+
+
+            <div class="layui-card layui-hide-xs">
+                <div class="layui-card-body">
+                    <form action="/search" method="get">
+                        <div class="layui-inline">
+                            <input class="layui-input" name="keyword" autocomplete="off" placeholder="关键词" lay-verify="required" required="">
+                        </div>
+                        <button class="layui-btn" type="submit">搜索</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="layui-card layui-hide-xs">
+                <div class="layui-card-header">
+                    热门标签
+                </div>
+                <div class="layui-card-body tags">
+                    <a th:each="rl:${session.RL}" class="animated3" href="#" title="springboot" th:attr=" style='background-color:'+${rl.color}+';'">[[${rl.name}]]</a>
+                </div>
+            </div>
+
+            <div class="layui-card layui-hide-xs">
+
+                <div class="layui-card-header ms-top">
+                    <ul class="hd" id="tab">
+                        <li class="active"><a href="#">点击排行</a></li>
+                        <li ><a href="#">最新文章</a></li>
+                        <li ><a href="#">站长推荐</a></li>
+                    </ul>
+                </div>
+                <div class="layui-card-body">
+                    <ul class="news-list">
+                        <li>
+                            <span class="layui-badge">1</span>
+                            <a href="#">ECS云服务器2折起，优惠配置多选1</a>
+                        </li>
+                        <li>
+                            <span class="layui-badge layui-bg-green">2</span>
+                            <a href="#">ECS云服务器2折起，优惠配置多选1</a>
+                        </li>
+                        <li>
+                            <span class="layui-badge layui-bg-cyan">3</span>
+                            <a href="#">ECS云服务器2折起，优惠配置多选1</a>
+                        </li>
+                        <li>
+                            <span class="layui-badge layui-bg-gray">4</span>
+                            <a href="#">ECS云服务器2折起，优惠配置多选1</a>
+                        </li>
+                        <li>
+                            <span class="layui-badge layui-bg-gray">5</span>
+                            <a href="#">ECS云服务器2折起，优惠配置多选1</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+            <div class="layui-card layui-hide-xs">
+
+                <div class="layui-card-header ">
+                    推荐视频
+                </div>
+                <div class="layui-card-body">
+                    <ul class="voide-list">
+                        <li th:each="rv:${session.RV}">
+                            <a th:href="'../index/video_detailed?id='+${rv.contentId}" th:attr="title=${rv.resouceContent.title}">
+                                <img th:src="@{${rv.resouceContent.thumbnailImg}}" >
+                                <b th:text="${rv.resouceContent.title}"></b>
+                            </a>
+                            <p>
+										<span class="tutime">
+											<i class="layui-icon layui-icon-log"></i>
+											<span th:text="${#dates.format(rv.resouceContent.addTime,'yyyy-MM-dd')}"></span>
+										</span>
+                            </p>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="layui-card layui-hide-xs">
+                <div class="layui-card-header">
+                    友情链接
+                </div>
+                <div class="layui-card-body">
+                    <a th:each="lc:${session.LC}" th:attr="href=${lc.url}"   target="_blank" th:text="${lc.name}+'&nbsp;&nbsp;&nbsp;&nbsp;'"></a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <footer >
+        <div class="footer-r" th:fragment="below">
+            <p>
+                © 2018-2022 xxxx 版权所有，保留所有权利。<br>版权声明：部分文章摘自互联网，如有侵权，麻烦告知删除，谢谢。
+            </p>
+        </div>
+    </footer>
+</html>

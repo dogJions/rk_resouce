@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script type="text/javascript" th:src="@{/jquery/jquery-1.9.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/swiper/js/swiper.js}"></script>
+	<script type="text/javascript" th:src="@{/js/softDetailed.js}"></script>
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+	<link rel="stylesheet" th:href="@{/css/common.css}" />
+	<link rel="stylesheet" th:href="@{/swiper/css/swiper.min.css}" />
+</head>
+
+<body>
+<!-- head -->
+<div th:replace="include/include::head"></div>
+
+<div class="layui-container ">
+	<div class="layui-row jianju">
+					<span class="layui-breadcrumb">
+					  <a href="">首页</a>
+					  <a><cite>软件</cite></a>
+					</span>
+	</div>
+	<div class="layui-row layui-col-space15">
+		<div class="layui-col-md8 ">
+			<div class="layui-card">
+
+				<div class="layui-card-body detail-box">
+					<h1 th:text="${soft.title}">简单的jQuery分页插件</h1>
+						<div class="ydl-detail-info">
+							<span class="layui-badge " style="vertical-align: super;" th:text="${soft.RCatalog}">前端插件</span>
+							<span class="ydl-yidong"><i class="layui-icon"></i><span class="num" th:text="${soft.clickCount}">5</span></span>
+							<span class="ydl-yidong ydl-right"><i class="layui-icon layui-icon-log"></i> <span th:text="${#dates.format(soft.addTime,'yyyy-MM-dd')}">2018-10-11</span></span>
+						</div>
+						<div class="detail-about_tips" th:text="${soft.summary}">一款好用又简单的jQuery分页插件</div>
+					<div class="detail-body" style="overflow: hidden;" th:utext="${soft.description}"></div>
+
+
+					<div class="attach-list">
+						<h2 class="slide-tit">
+							<span>附件下载</span>
+						</h2>
+
+						<ul>
+							<li>
+								<!-- th:onclick="'openDownload('+${rdf.id}+')'" -->
+								<a class="link-btn" href="javascript:;" th:onclick="'down('+${rdf.id}+')'" >
+									<i class="layui-icon  layui-icon-file-b iconfont icon-down"></i>下载
+								</a>
+
+								<div class="icon-box">
+									<i class="layui-icon  layui-icon-download-circle icon-attach"></i>
+								</div>
+								<div class="info">
+									<h3 th:text="${rdf.fileName}">angularjs日期选择插件.zip</h3>
+									<p>
+										<span>文件类型：<span  th:text="${rdf.ext}">.zip</span></span>
+										<span>
+				                                    大小：
+
+				                                       <span th:text="${rdf.fileSize}">123312</span>KB
+
+				                                </span>
+										<span>下载：<span th:text="${rdf.downloadCount}">0</span>次</span>
+									</p>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- right -->
+		<div th:replace="include/include::right"></div>
+
+	</div>
+</div>
+
+<!-- below -->
+<div th:replace="include/include::below"></div>
+
+<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title></title>
+		<script type="text/javascript" th:src="@{/jquery/jquery-1.9.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/swiper/js/swiper.js}"></script>
+		<script type="text/javascript" th:src="@{/laypage/laypage.js}"></script>
+		<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+		<link rel="stylesheet" th:href="@{/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/swiper/css/swiper.min.css}"/>
+
+	</head>
+
+	<body>
+
+		<!-- head -->
+		<div th:replace="include/include::head"></div>
+
+		<div class="layui-container ">
+				<div class="layui-container ydl-yuyin layui-anim layui-anim-fadein">
+					<span class="quotetitle layui-unselect">每日语录：</span>
+					<i id="color-xiaolian" class="layui-icon layui-icon-face-smile layui-unselect"></i>
+					<a >亲爱的祖国，生日快乐！——Valerieee</a>
+				</div>
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md8 ">
+					
+
+						
+					<div class="layui-carousel" id="brand">
+						  <div carousel-item >
+						    <div th:each="ad:${adConfig}"><img th:src="@{${ad.adImg}}"/></div>
+						  </div>
+					</div>
+
+					
+					<div class="layui-card">
+						<div class="layui-card-header">
+							精选推荐
+						</div>
+						<div class="layui-card-body ydl-card">
+							<ul class="content-main" id="list">
+
+							</ul>
+						</div>
+					</div>
+				</div>	
+				
+				<!-- right -->
+				<div th:replace="include/include::right"></div>
+
+			</div>
+		</div>
+		
+		<!-- below -->
+		<div th:replace="include/include::below"></div>
+
+		<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+		<script type="text/javascript" th:src="@{/js/index.js}"></script>
+	</body>
+   
+</html>

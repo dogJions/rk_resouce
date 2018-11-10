@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script type="text/javascript" th:src="@{/jquery/jquery-1.9.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/swiper/js/swiper.js}"></script>
+	<script type="text/javascript" th:src="@{/js/videoDateiled.js}"></script>
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+	<link rel="stylesheet" th:href="@{/css/common.css}" />
+	<link rel="stylesheet" th:href="@{/swiper/css/swiper.min.css}" />
+</head>
+
+<body>
+<!-- head -->
+<div th:replace="include/include::head"></div>
+
+<div class="layui-container ">
+	<div class="layui-row jianju">
+					<span class="layui-breadcrumb">
+					  <a href="">首页</a>
+					  <a><cite>视频</cite></a>
+					</span>
+	</div>
+	<div class="layui-row layui-col-space15">
+		<div class="layui-col-md8 ">
+			<div class="layui-card">
+
+				<div class="layui-card-body detail-box">
+					<h1 th:text="${video.title}">延禧攻略</h1>
+					<input type="hidden" id="cid" th:value="${video.id}">
+					<div class="video-jieshao">
+						<table>
+							<tbody><tr>
+								<td>地区:</td>
+								<td>中国大陆</td>
+								<td>语言:</td>
+								<td>普通话</td>
+							</tr>
+							<tr>
+								<td>时间:</td>
+								<td th:text="${#dates.format( video.addTime,'yyyy-MM-dd')}">2018</td>
+								<td>导演:</td>
+								<td th:text="${video.author}">惠楷栋</td>
+							</tr>
+							<tr>
+								<td>类型:</td>
+								<td th:text="${video.seoKeyword}">古装 / 宫廷 / 剧情</td>
+								<td>更新时间:</td>
+								<td>20:00</td>
+							</tr>
+							</tbody></table>
+					</div>
+					<div class="detail-about_tips" th:utext="${video.description}">
+						乾隆六年，少女魏璎珞为寻求长姐死亡真相，入紫禁城为宫女。经调查，璎珞证实姐姐之死与荒唐王爷弘昼有关，立志要讨回公道。富察皇后娴于礼法，担心璎珞走上歧途，竭力给予她温暖与帮助。在皇后的悉心教导下，魏璎珞一步步成长为正直坚强的宫廷女官，并放下怨恨、认真生活。皇后不幸崩逝，令璎珞对乾隆误会重重，二人从互相敌视到最终彼此理解、互相扶持。璎珞凭勇往直前的勇气、机敏灵活的头脑、宽广博大的胸怀，化解宫廷上下的重重困难，最终成为襄助乾隆盛世的令贵妃。直到璎珞去世前，她才将当年富察皇后临终托付告知乾隆，即望她陪伴弘历身边，辅助他做一个有为明君，乾隆终知富察氏用心良苦。乾隆六十年，乾隆帝宣示魏璎珞之子嘉亲王永琰为皇太子，同时追封皇太子生母令懿皇贵妃为孝仪皇后，璎珞终于用自己的一生，实现了对富察皇后的承诺。
+					</div>
+					<div class="detail-body video" style="min-height: auto!important;" id="uRl">
+						<!--<iframe src="http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=747b873d5adbbdcea15bc280d4cabf50&amp;tvId=1177963700&amp;accessToken=2.f22860a2479ad60d8da7697274de9346&amp;appKey=3955c3425820435e86d0f4cdfe56f5e7&amp;appId=1368&amp;height=100%&amp;width=100%" frameborder="0" allowfullscreen="true" width="100%" height="100%"></iframe>-->
+					</div>
+
+					<div class="video-main-list">
+						<div class="video-main-header">
+							剧集列表
+						</div>
+
+						<div class="video-main-center">
+							<ul id="ul">
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- right -->
+		<div th:replace="include/include::right"></div>
+
+	</div>
+</div>
+
+<!-- below -->
+<div th:replace="include/include::below"></div>
+
+<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

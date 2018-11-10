@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<script type="text/javascript" th:src="@{/jquery/jquery-1.9.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/swiper/js/swiper.js}"></script>
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+		<link rel="stylesheet" th:href="@{/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/swiper/css/swiper.min.css}" />
+	</head>
+
+	<body>
+	<!-- head -->
+	<div th:replace="include/include::head"></div>
+
+		<div class="layui-container ">
+			<div class="layui-row jianju">
+					<span class="layui-breadcrumb">
+					  <a href="">首页</a>
+					  <a><cite>文章</cite></a>
+					</span>
+			</div>
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md8 ">
+					<div class="layui-card">
+
+						<div class="layui-card-body detail-box">
+							<h1 th:text="${text.title}">2018整合C#面试题</h1>
+							<div class="ydl-detail-info">
+								<span class="layui-badge " style="vertical-align: super;" th:text="${text.RCatalog}">c#</span>
+								<span class="ydl-yidong"><i class="layui-icon">&#xe705;</i><span class="num" th:text="${text.clickCount}"> 66</span></span>
+								<span class="ydl-yidong ydl-right"th:text="${#dates.format(text.addTime,'yyyy-MM-dd')}"><i class="layui-icon layui-icon-log"></i> 2018-09-26</span>
+							</div>
+							<div class="detail-about_tips" th:utext="${text.description}">
+        						C#是微软公司发布的一种面向对象的、运行于.NET Framework之上的高级程序设计语言。并定于在微软职业开发者论坛(PDC)上登台亮相。C#是微软公司研究员Anders Hejlsberg的最新成果。C#看起来与Java有着惊人的相似;它包括了诸如单一继承、接口、与Java几乎同样的语法和编译成中间代码再运行的过程。
+							</div>
+							<div class="detail-body" th:text="${text.seoKeyword}">
+								<p>1.简述 private、 protected、 public、internal 修饰符的访问权限</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>	
+
+					<!-- right -->
+					<div th:replace="include/include::right"></div>
+
+			</div>
+		</div>
+
+	<!-- below -->
+	<div th:replace="include/include::below"></div>
+
+	<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+	</body>
+   
+</html>

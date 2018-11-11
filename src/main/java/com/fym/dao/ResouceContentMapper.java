@@ -7,6 +7,8 @@ import java.util.Map;
 
 public interface ResouceContentMapper {
 
+    int selectByCon(int sitepid);
+
     List<ResouceContent> selectByText(Map<String,Object> map);
 
     List<ResouceContent> selectIndex();

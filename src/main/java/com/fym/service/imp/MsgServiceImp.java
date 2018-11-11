@@ -37,4 +37,9 @@ public class MsgServiceImp implements MsgService {
     public Message selectById(long id) {
         return mapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int selectByCon() {
+        return mapper.selectByCon();
+    }
 }

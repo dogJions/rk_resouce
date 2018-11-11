@@ -1,5 +1,7 @@
 package com.fym.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class userLog {
@@ -11,6 +13,7 @@ public class userLog {
 
     private String address;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd  HH:mm:ss")
     private Date addTime;
 
     private String content;

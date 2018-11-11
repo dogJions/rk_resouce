@@ -5,6 +5,9 @@ import com.fym.entity.Message;
 import java.util.List;
 
 public interface MessageMapper {
+
+    int selectByCon();
+
     List<Message> selectAll();
 
     int deleteByPrimaryKey(Long id);

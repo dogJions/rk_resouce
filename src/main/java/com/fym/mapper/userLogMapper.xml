@@ -8,6 +8,12 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
+
+<!--查所有-->
+  <select id="selectAll" resultMap="BaseResultMap">
+          select * from user_log
+  </select>
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fym.entity.userLog">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>

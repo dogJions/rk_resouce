@@ -47,6 +47,11 @@ public class RContentServiceImp implements RContentService {
     }
 
     @Override
+    public int selectByCon(int sitepid) {
+        return mapper.selectByCon(sitepid);
+    }
+
+    @Override
     public List<ResouceContent> selectAll() {
         return mapper.selectAll();
     }

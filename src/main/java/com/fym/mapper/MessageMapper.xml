@@ -8,11 +8,15 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
 
+  <!--后台控制台查留言数-->
+  <select id="selectByCon" resultType="int">
+        select COUNT(*) from message
+  </select>
+
 <!--查所有-->
   <select id="selectAll" resultMap="BaseResultMap">
     select * from message
   </select>
-
 
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fym.entity.Message">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />

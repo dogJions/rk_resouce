@@ -21,4 +21,11 @@ public interface RContentService extends BaseService<ResouceContent> {
      * @return
      */
     public PageInfo<ResouceContent> clist(int cid,int hiv,int pageNum,int siteType);
+
+    /**
+     * 后台控制台资源数查询
+     * @param sitepid 资源分类
+     * @return
+     */
+    int selectByCon (int sitepid);
 }

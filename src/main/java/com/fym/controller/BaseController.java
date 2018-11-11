@@ -36,4 +36,12 @@ public class BaseController {
     //留言表
     @Autowired
     MsgService msgService;
+
+    //登录日志表
+    @Autowired
+    ULService ulService;
+
+    //用户表
+    @Autowired
+    SUService suService;
 }

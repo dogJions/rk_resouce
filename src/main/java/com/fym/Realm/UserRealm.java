@@ -1,5 +1,6 @@
 package com.fym.Realm;
 
+import com.fym.dao.SysUserMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserRealm extends AuthorizingRealm {
-
+    @Autowired
+    SysUserMapper mapper;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -30,7 +32,8 @@ public class UserRealm extends AuthorizingRealm {
         String userName=(String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
 
-        if (!"admin".equals(userName) || !"admin".equals(password)){
+
+        if ( mapper.selectByLogin(userName)==null||! (password.equals(mapper.selectByLogin(userName))) ){
             throw new UnknownAccountException("账号密码不正确");
         }
         SimpleAuthenticationInfo simpleAuthenticationInfo=new SimpleAuthenticationInfo(userName,password,getName());

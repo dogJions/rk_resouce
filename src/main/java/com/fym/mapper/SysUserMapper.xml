@@ -10,6 +10,21 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="header_img" jdbcType="VARCHAR" property="headerImg" />
   </resultMap>
+
+  <!-- 登录 -->
+  <select id="selectByLogin" resultType="String" parameterType="String">
+      select password from sys_user where username=#{name}
+  </select>
+  <!-- 通过name查具体数据 -->
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="String">
+      select * from sys_user where username=#{name}
+  </select>
+  <!-- 查所有 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+      select * from sys_user
+  </select>
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fym.entity.SysUser">
     <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>

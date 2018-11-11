@@ -44,7 +44,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-        shiroFilter.setLoginUrl("/login/tologin");
+        shiroFilter.setLoginUrl("/index/login");
         shiroFilter.setUnauthorizedUrl("/");
         Map<String, String> filterMap = new LinkedHashMap<>();
         // anon:代表shiro框架提供的一个过滤器，允许匿名访问

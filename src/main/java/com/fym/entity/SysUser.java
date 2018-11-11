@@ -1,5 +1,7 @@
 package com.fym.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class SysUser {
@@ -9,6 +11,7 @@ public class SysUser {
 
     private String password;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 
     private Date lastLoginTime;

@@ -2,7 +2,12 @@ package com.fym.dao;
 
 import com.fym.entity.userLog;
 
+import java.util.List;
+
 public interface userLogMapper {
+
+    List<userLog> selectAll();
+
     int deleteByPrimaryKey(Long id);
 
     int insert(userLog record);

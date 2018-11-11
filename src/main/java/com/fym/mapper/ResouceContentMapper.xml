@@ -21,9 +21,13 @@
     <result column="class_pid" jdbcType="VARCHAR" property="classPid" />
   </resultMap>
 
+  <!--后台控制台查询资源数量-->
+  <select id="selectByCon" resultType="int" parameterType="int">
+        select COUNT(*) from resouce_content where site_type=#{sitepid}
+  </select>
 
 
-  <!-- 资源查询 -->
+  <!-- 分类资源查询 -->
   <select id="selectByText" parameterType="map" resultMap="BaseResultMap">
       SELECT * from resouce_content where is_show=1 and site_type=#{siteType}
       <if test="cid != 0"> and class_pid like concat( concat('%,',#{cid}),',%')</if>
